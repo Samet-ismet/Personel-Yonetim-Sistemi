@@ -1,0 +1,168 @@
+<section class="access-page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            KULLANICI YÖNETİMİ
+        </p>
+
+        <h1>
+            Kullanıcı Yetkileri
+        </h1>
+
+        <p>
+            Kullanıcının rolünü ve
+            personel bağlantısını düzenleyin.
+        </p>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    @if (isLoading()) {
+
+    <div class="loading-card">
+        Kullanıcı bilgileri yükleniyor...
+    </div>
+
+    }
+    @else if (user()) {
+
+    <div class="user-summary">
+
+        <span>
+            Kullanıcı
+        </span>
+
+        <strong>
+            {{ user()!.username }}
+        </strong>
+
+    </div>
+
+
+    <form class="form-card" [formGroup]="form" (ngSubmit)="submit()">
+
+
+        <div class="form-field">
+
+            <label for="role">
+                Kullanıcı Rolü
+            </label>
+
+            <select id="role" formControlName="role">
+
+                <option value="">
+                    Rol seçiniz
+                </option>
+
+                @for (
+                role of roles;
+                track role
+                ) {
+
+                <option [value]="role">
+
+                    {{ role }}
+
+                </option>
+
+                }
+
+            </select>
+
+
+            @if (
+            form.controls.role.touched &&
+            form.controls.role.invalid
+            ) {
+
+            <small class="field-error">
+                Kullanıcı rolü zorunludur.
+            </small>
+
+            }
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label for="employeeId">
+                Bağlı Personel
+            </label>
+
+            <select id="employeeId" formControlName="employeeId">
+
+                <option [ngValue]="null">
+                    Personel bağlantısı yok
+                </option>
+
+
+                @for (
+                employee of employees();
+                track employee.id
+                ) {
+
+                <option [ngValue]="employee.id">
+
+                    {{ employee.firstName }}
+                    {{ employee.lastName }}
+                    —
+                    {{ employee.departmentName }}
+
+                </option>
+
+                }
+
+            </select>
+
+
+            <small class="helper-text">
+                Bir personel kaydı aynı anda
+                yalnızca bir kullanıcı hesabına
+                bağlanabilir.
+            </small>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="button" class="secondary-button" (click)="cancel()" [disabled]="isSubmitting()">
+
+                Vazgeç
+
+            </button>
+
+
+            <button type="submit" class="primary-button" [disabled]="isSubmitting()">
+
+                @if (isSubmitting()) {
+
+                Kaydediliyor...
+
+                }
+                @else {
+
+                Yetkileri Kaydet
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+    }
+
+</section>

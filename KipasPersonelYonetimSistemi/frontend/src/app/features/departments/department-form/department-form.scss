@@ -1,0 +1,191 @@
+.department-form-page {
+    max-width: 850px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+
+    h1 {
+        margin: 6px 0 8px;
+
+        color: #101828;
+
+        font-size: 30px;
+    }
+
+    p {
+        margin: 0;
+
+        color: #667085;
+    }
+}
+
+.eyebrow {
+    color: #475467 !important;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.form-card {
+    padding: 28px;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+}
+
+.form-field {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 22px;
+
+    >label:first-child {
+        color: #344054;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    input[type="text"],
+    textarea {
+        padding: 12px;
+
+        border: 1px solid #d0d5dd;
+
+        border-radius: 8px;
+
+        background: #ffffff;
+
+        color: #101828;
+
+        font: inherit;
+
+        outline: none;
+
+        &:focus {
+            border-color: #667085;
+        }
+    }
+
+    textarea {
+        resize: vertical;
+    }
+}
+
+.checkbox-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-height: 42px;
+
+    color: #344054;
+
+    cursor: pointer;
+
+    input {
+        width: 18px;
+        height: 18px;
+
+        cursor: pointer;
+    }
+}
+
+.character-count {
+    color: #98a2b3;
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+.field-error {
+    color: #b42318;
+
+    font-size: 12px;
+}
+
+.error-message {
+    margin-bottom: 20px;
+
+    padding: 14px 16px;
+
+    border: 1px solid #fecdca;
+
+    border-radius: 8px;
+
+    background: #fef3f2;
+
+    color: #b42318;
+}
+
+.loading-card {
+    padding: 40px;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #667085;
+
+    text-align: center;
+}
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid #e4e7ec;
+}
+
+button {
+    min-height: 42px;
+
+    padding: 0 18px;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.6;
+
+        cursor: not-allowed;
+    }
+}
+
+.primary-button {
+    border: none;
+
+    background: #182230;
+
+    color: #ffffff;
+}
+
+.secondary-button {
+    border: 1px solid #d0d5dd;
+
+    background: #ffffff;
+
+    color: #344054;
+}

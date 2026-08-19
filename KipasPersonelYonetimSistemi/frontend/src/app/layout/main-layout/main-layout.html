@@ -1,0 +1,181 @@
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-title">
+                Kipaş
+            </div>
+
+            <div class="brand-subtitle">
+                Personel Yönetim Sistemi
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{
+                    exact: true
+                }">
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            @if (
+            role === 'Admin' ||
+            role === 'HumanResources'
+            ) {
+
+            <a routerLink="/employees" routerLinkActive="active">
+
+                <span class="menu-icon">
+                    ♙
+                </span>
+
+                <span>
+                    Personeller
+                </span>
+
+            </a>
+
+            }
+
+
+            @if (role === 'Manager') {
+
+            <a routerLink="/my-department" routerLinkActive="active">
+
+                <span class="menu-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Kendi Departmanım
+                </span>
+
+            </a>
+
+            }
+
+
+            @if (role === 'Employee') {
+
+            <a routerLink="/profile" routerLinkActive="active">
+
+                <span class="menu-icon">
+                    ♙
+                </span>
+
+                <span>
+                    Profilim
+                </span>
+
+            </a>
+
+            }
+
+
+            @if (role === 'Admin') {
+
+            <a routerLink="/departments" routerLinkActive="active">
+
+                <span class="menu-icon">
+                    ◫
+                </span>
+
+                <span>
+                    Departmanlar
+                </span>
+
+            </a>
+
+
+            <a routerLink="/users" routerLinkActive="active">
+
+                <span class="menu-icon">
+                    ♟
+                </span>
+
+                <span>
+                    Kullanıcı Yönetimi
+                </span>
+
+            </a>
+
+            }
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="user-info">
+
+                <span class="username">
+                    {{ username }}
+                </span>
+
+                <span class="role">
+                    {{ role }}
+                </span>
+
+            </div>
+
+
+            <button type="button" class="logout-button" (click)="logout()">
+
+                Çıkış Yap
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div class="page-area">
+
+        <header class="topbar">
+
+            <div>
+
+                <strong>
+                    Personel Yönetim Sistemi
+                </strong>
+
+            </div>
+
+
+            <div class="topbar-user">
+
+                {{ username }}
+
+                <span>
+                    {{ role }}
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <main class="content">
+
+            <router-outlet />
+
+        </main>
+
+    </div>
+
+</div>

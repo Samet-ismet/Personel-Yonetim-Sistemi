@@ -1,0 +1,213 @@
+<section class="user-create-page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            KULLANICI YÖNETİMİ
+        </p>
+
+        <h1>
+            Yeni Kullanıcı
+        </h1>
+
+        <p>
+            Sisteme giriş yapacak yeni
+            kullanıcı hesabını oluşturun.
+        </p>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    <form class="form-card" [formGroup]="form" (ngSubmit)="submit()">
+
+
+        <div class="form-field">
+
+            <label for="username">
+                Kullanıcı Adı
+            </label>
+
+            <input id="username" type="text" formControlName="username" maxlength="50" autocomplete="off" />
+
+            @if (
+            form.controls.username.touched &&
+            form.controls.username.hasError('required')
+            ) {
+
+            <small class="field-error">
+                Kullanıcı adı zorunludur.
+            </small>
+
+            }
+
+            @if (
+            form.controls.username.touched &&
+            form.controls.username.hasError('minlength')
+            ) {
+
+            <small class="field-error">
+                Kullanıcı adı en az 3 karakter olmalıdır.
+            </small>
+
+            }
+
+            @if (
+            form.controls.username.touched &&
+            form.controls.username.hasError('pattern')
+            ) {
+
+            <small class="field-error">
+                Yalnızca harf, rakam, nokta,
+                alt çizgi ve kısa çizgi kullanılabilir.
+            </small>
+
+            }
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label for="password">
+                Şifre
+            </label>
+
+            <input id="password" type="password" formControlName="password" maxlength="100"
+                autocomplete="new-password" />
+
+            <small class="helper-text">
+                Şifre en az 15 karakter olmalıdır.
+            </small>
+
+            @if (
+            form.controls.password.touched &&
+            form.controls.password.hasError('required')
+            ) {
+
+            <small class="field-error">
+                Şifre zorunludur.
+            </small>
+
+            }
+
+            @if (
+            form.controls.password.touched &&
+            form.controls.password.hasError('minlength')
+            ) {
+
+            <small class="field-error">
+                Şifre en az 15 karakter olmalıdır.
+            </small>
+
+            }
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label for="role">
+                Rol
+            </label>
+
+            <select id="role" formControlName="role">
+
+                @for (
+                role of roles;
+                track role
+                ) {
+
+                <option [value]="role">
+                    {{ role }}
+                </option>
+
+                }
+
+            </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label for="employeeId">
+                Bağlı Personel
+            </label>
+
+            <select id="employeeId" formControlName="employeeId" [disabled]="isLoadingEmployees()">
+
+                <option [ngValue]="null">
+                    Personel bağlantısı yok
+                </option>
+
+                @for (
+                employee of employees();
+                track employee.id
+                ) {
+
+                <option [ngValue]="employee.id">
+
+                    {{ employee.firstName }}
+                    {{ employee.lastName }}
+                    —
+                    {{ employee.departmentName }}
+
+                </option>
+
+                }
+
+            </select>
+
+
+            <small class="helper-text">
+
+                Employee ve Manager hesapları
+                için ilgili personelin bağlanması
+                önerilir.
+
+            </small>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="button" class="secondary-button" (click)="cancel()" [disabled]="isSubmitting()">
+
+                Vazgeç
+
+            </button>
+
+
+            <button type="submit" class="primary-button" [disabled]="
+                    isSubmitting() ||
+                    isLoadingEmployees()
+                ">
+
+                @if (isSubmitting()) {
+
+                Oluşturuluyor...
+
+                }
+                @else {
+
+                Kullanıcı Oluştur
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+</section>

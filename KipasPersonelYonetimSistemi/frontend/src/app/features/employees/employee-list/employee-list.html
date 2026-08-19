@@ -1,0 +1,353 @@
+<section class="employee-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <p class="eyebrow">
+                PERSONEL YÖNETİMİ
+            </p>
+
+            <h1>
+                Personeller
+            </h1>
+
+            <p class="description">
+                Sistemde kayıtlı personelleri
+                görüntüleyebilir ve yönetebilirsiniz.
+            </p>
+
+        </div>
+
+
+        <button type="button" class="add-button" (click)="addEmployee()">
+
+            + Yeni Personel
+
+        </button>
+
+    </div>
+
+
+    @if (successMessage()) {
+
+    <div class="success-message">
+        {{ successMessage() }}
+    </div>
+
+    }
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message top-error">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    <div class="filter-card">
+
+        <div class="search-area">
+
+            <input type="text" [(ngModel)]="searchText" placeholder="Ad veya soyad ara..." (keyup.enter)="search()" />
+
+            <button type="button" class="primary-button" (click)="search()">
+
+                Ara
+
+            </button>
+
+            <button type="button" class="secondary-button" (click)="clearSearch()">
+
+                Temizle
+
+            </button>
+
+        </div>
+
+
+        <div class="sort-area">
+
+            <select [(ngModel)]="selectedDepartmentId" (change)="changeDepartment()">
+
+                <option [ngValue]="0">
+                    Tüm Departmanlar
+                </option>
+
+                @for (
+                department of departments();
+                track department.id
+                ) {
+
+                <option [ngValue]="department.id">
+
+                    {{ department.name }}
+
+                </option>
+
+                }
+
+            </select>
+
+
+            <select [(ngModel)]="sortBy" (change)="changeSort()">
+
+                <option value="id">
+                    ID
+                </option>
+
+                <option value="firstname">
+                    Ad
+                </option>
+
+                <option value="lastname">
+                    Soyad
+                </option>
+
+                <option value="department">
+                    Departman
+                </option>
+
+            </select>
+
+
+            <select [(ngModel)]="sortDirection" (change)="changeSort()">
+
+                <option value="asc">
+                    Artan
+                </option>
+
+                <option value="desc">
+                    Azalan
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-card">
+
+        @if (isLoading()) {
+
+        <div class="state-message">
+            Personeller yükleniyor...
+        </div>
+
+        }
+        @else if (employees().length === 0) {
+
+        <div class="state-message">
+            Personel bulunamadı.
+        </div>
+
+        }
+        @else {
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Departman</th>
+                        <th>Durum</th>
+                        <th>CV</th>
+                        <th>İşlemler</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @for (
+                    employee of employees();
+                    track employee.id
+                    ) {
+
+                    <tr>
+
+                        <td>
+                            {{ employee.id }}
+                        </td>
+
+
+                        <td>
+                            {{ employee.firstName }}
+                        </td>
+
+
+                        <td>
+                            {{ employee.lastName }}
+                        </td>
+
+
+                        <td>
+                            {{ employee.departmentName }}
+                        </td>
+
+
+                        <td>
+
+                            @if (employee.isActive) {
+
+                            <span class="status active">
+                                Aktif
+                            </span>
+
+                            }
+                            @else {
+
+                            <span class="status passive">
+                                Pasif
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="cv-actions">
+
+                                <input #cvInput type="file" accept=".pdf,application/pdf" hidden
+                                    (change)="uploadCv(employee, $event)" />
+
+
+                                <button type="button" class="cv-upload-button" (click)="cvInput.click()" [disabled]="
+                                                cvBusyEmployeeId() ===
+                                                employee.id
+                                            ">
+
+                                    CV Yükle
+
+                                </button>
+
+
+                                <button type="button" class="cv-download-button" (click)="downloadCv(employee)"
+                                    [disabled]="
+                                                cvBusyEmployeeId() ===
+                                                employee.id
+                                            ">
+
+                                    İndir
+
+                                </button>
+
+
+                                <button type="button" class="cv-delete-button" (click)="deleteCv(employee)" [disabled]="
+                                                cvBusyEmployeeId() ===
+                                                employee.id
+                                            ">
+
+                                    CV Sil
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button type="button" class="edit-button" (click)="editEmployee(employee.id)">
+
+                                    Düzenle
+
+                                </button>
+
+
+                                @if (canDelete) {
+
+                                <button type="button" class="delete-button" (click)="deleteEmployee(employee)">
+
+                                    Sil
+
+                                </button>
+
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="pagination">
+
+            <div class="pagination-info">
+
+                Toplam
+
+                <strong>
+                    {{ totalCount() }}
+                </strong>
+
+                personel
+
+            </div>
+
+
+            <div class="pagination-controls">
+
+                <button type="button" (click)="previousPage()" [disabled]="pageNumber() <= 1">
+
+                    Önceki
+
+                </button>
+
+
+                <span>
+
+                    Sayfa
+
+                    <strong>
+                        {{ pageNumber() }}
+                    </strong>
+
+                    /
+
+                    <strong>
+                        {{ totalPages }}
+                    </strong>
+
+                </span>
+
+
+                <button type="button" (click)="nextPage()" [disabled]="pageNumber() >= totalPages">
+
+                    Sonraki
+
+                </button>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

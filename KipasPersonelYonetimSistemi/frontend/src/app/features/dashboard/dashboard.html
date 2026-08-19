@@ -1,0 +1,214 @@
+<section class="dashboard-page">
+
+    <div class="welcome-card">
+
+        <p class="eyebrow">
+            PERSONEL YÖNETİM SİSTEMİ
+        </p>
+
+        <h1>
+            Hoş geldiniz, {{ username }}
+        </h1>
+
+        <p class="welcome-text">
+            Sisteme
+            <strong>{{ roleLabel }}</strong>
+            yetkisiyle giriş yaptınız.
+        </p>
+
+    </div>
+
+
+    <div class="section-header">
+
+        <h2>
+            Hızlı İşlemler
+        </h2>
+
+        <p>
+            Yetkinize uygun işlemlere
+            aşağıdan ulaşabilirsiniz.
+        </p>
+
+    </div>
+
+
+    <div class="quick-grid">
+
+        @if (role === 'Admin') {
+
+        <a routerLink="/employees" class="quick-card">
+
+            <div class="card-icon">
+                ♙
+            </div>
+
+            <div>
+
+                <h3>
+                    Personel Yönetimi
+                </h3>
+
+                <p>
+                    Personelleri listeleyin,
+                    ekleyin ve düzenleyin.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a routerLink="/departments" class="quick-card">
+
+            <div class="card-icon">
+                ◫
+            </div>
+
+            <div>
+
+                <h3>
+                    Departman Yönetimi
+                </h3>
+
+                <p>
+                    Departmanları oluşturun,
+                    düzenleyin ve yönetin.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a routerLink="/users" class="quick-card">
+
+            <div class="card-icon">
+                ♟
+            </div>
+
+            <div>
+
+                <h3>
+                    Kullanıcı Yönetimi
+                </h3>
+
+                <p>
+                    Kullanıcı rolleri,
+                    personel bağlantıları ve
+                    hesap durumlarını yönetin.
+                </p>
+
+            </div>
+
+        </a>
+
+        }
+
+
+        @if (role === 'HumanResources') {
+
+        <a routerLink="/employees" class="quick-card">
+
+            <div class="card-icon">
+                ♙
+            </div>
+
+            <div>
+
+                <h3>
+                    Personeller
+                </h3>
+
+                <p>
+                    Personel kayıtlarını
+                    görüntüleyin, ekleyin
+                    ve güncelleyin.
+                </p>
+
+            </div>
+
+        </a>
+
+        }
+
+
+        @if (role === 'Manager') {
+
+        <a routerLink="/my-department" class="quick-card">
+
+            <div class="card-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <h3>
+                    Kendi Departmanım
+                </h3>
+
+                <p>
+                    Bağlı olduğunuz
+                    departmandaki personelleri
+                    görüntüleyin.
+                </p>
+
+            </div>
+
+        </a>
+
+        }
+
+
+        @if (role === 'Employee') {
+
+        <a routerLink="/profile" class="quick-card">
+
+            <div class="card-icon">
+                ♙
+            </div>
+
+            <div>
+
+                <h3>
+                    Profilim
+                </h3>
+
+                <p>
+                    Sistemde kayıtlı
+                    personel bilgilerinizi
+                    görüntüleyin.
+                </p>
+
+            </div>
+
+        </a>
+
+        }
+
+    </div>
+
+
+    <div class="security-note">
+
+        <div class="security-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong>
+                Rol bazlı erişim
+            </strong>
+
+            <p>
+                Görüntüleyebileceğiniz ekranlar
+                hesabınıza tanımlanan role göre
+                sınırlandırılmaktadır.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>

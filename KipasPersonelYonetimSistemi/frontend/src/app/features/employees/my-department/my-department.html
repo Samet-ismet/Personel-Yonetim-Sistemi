@@ -1,0 +1,240 @@
+<section class="department-page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            MANAGER PANELİ
+        </p>
+
+        <h1>
+            Kendi Departmanım
+        </h1>
+
+        <p>
+            Yalnızca bağlı olduğunuz
+            departmandaki personeller
+            görüntülenmektedir.
+        </p>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    <div class="filter-card">
+
+        <div class="search-area">
+
+            <input type="text" [(ngModel)]="searchText" placeholder="Ad veya soyad ara..." (keyup.enter)="search()" />
+
+            <button type="button" class="primary-button" (click)="search()">
+
+                Ara
+
+            </button>
+
+            <button type="button" class="secondary-button" (click)="clearSearch()">
+
+                Temizle
+
+            </button>
+
+        </div>
+
+
+        <div class="sort-area">
+
+            <select [(ngModel)]="sortBy" (change)="changeSort()">
+
+                <option value="id">
+                    ID
+                </option>
+
+                <option value="firstname">
+                    Ad
+                </option>
+
+                <option value="lastname">
+                    Soyad
+                </option>
+
+                <option value="department">
+                    Departman
+                </option>
+
+            </select>
+
+
+            <select [(ngModel)]="sortDirection" (change)="changeSort()">
+
+                <option value="asc">
+                    Artan
+                </option>
+
+                <option value="desc">
+                    Azalan
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-card">
+
+        @if (isLoading()) {
+
+        <div class="state-message">
+            Departman personelleri
+            yükleniyor...
+        </div>
+
+        }
+        @else if (
+        employees().length === 0
+        ) {
+
+        <div class="state-message">
+            Departmanda personel bulunamadı.
+        </div>
+
+        }
+        @else {
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Departman</th>
+                        <th>Durum</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @for (
+                    employee of employees();
+                    track employee.id
+                    ) {
+
+                    <tr>
+
+                        <td>
+                            {{ employee.id }}
+                        </td>
+
+                        <td>
+                            {{ employee.firstName }}
+                        </td>
+
+                        <td>
+                            {{ employee.lastName }}
+                        </td>
+
+                        <td>
+                            {{ employee.departmentName }}
+                        </td>
+
+                        <td>
+
+                            @if (employee.isActive) {
+
+                            <span class="status active">
+                                Aktif
+                            </span>
+
+                            }
+                            @else {
+
+                            <span class="status passive">
+                                Pasif
+                            </span>
+
+                            }
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="pagination">
+
+            <div class="pagination-info">
+
+                Toplam
+
+                <strong>
+                    {{ totalCount() }}
+                </strong>
+
+                personel
+
+            </div>
+
+
+            <div class="pagination-controls">
+
+                <button type="button" (click)="previousPage()" [disabled]="pageNumber() <= 1">
+
+                    Önceki
+
+                </button>
+
+
+                <span>
+
+                    Sayfa
+
+                    <strong>
+                        {{ pageNumber() }}
+                    </strong>
+
+                    /
+
+                    <strong>
+                        {{ totalPages }}
+                    </strong>
+
+                </span>
+
+
+                <button type="button" (click)="nextPage()" [disabled]="pageNumber() >= totalPages">
+
+                    Sonraki
+
+                </button>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

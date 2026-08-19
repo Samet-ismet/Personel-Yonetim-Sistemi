@@ -1,0 +1,267 @@
+<section class="department-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <p class="eyebrow">
+                DEPARTMAN YÖNETİMİ
+            </p>
+
+            <h1>
+                Departmanlar
+            </h1>
+
+            <p class="description">
+                Sistemde tanımlı departmanları
+                görüntüleyebilir ve yönetebilirsiniz.
+            </p>
+
+        </div>
+
+
+        <button type="button" class="add-button" (click)="addDepartment()">
+
+            + Yeni Departman
+
+        </button>
+
+    </div>
+
+
+    @if (successMessage()) {
+
+    <div class="success-message">
+
+        {{ successMessage() }}
+
+    </div>
+
+    }
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+
+        {{ errorMessage() }}
+
+    </div>
+
+    }
+
+
+    <div class="filter-card">
+
+        <label class="checkbox-label">
+
+            <input type="checkbox" [(ngModel)]="includeInactive" (change)="changeInactiveFilter()" />
+
+            <span>
+                Pasif departmanları da göster
+            </span>
+
+        </label>
+
+    </div>
+
+
+    <div class="table-card">
+
+        @if (isLoading()) {
+
+        <div class="state-message">
+            Departmanlar yükleniyor...
+        </div>
+
+        }
+        @else if (
+        departments().length === 0
+        ) {
+
+        <div class="state-message">
+            Departman bulunamadı.
+        </div>
+
+        }
+        @else {
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>
+                            Departman Adı
+                        </th>
+
+                        <th>
+                            Açıklama
+                        </th>
+
+                        <th>
+                            Durum
+                        </th>
+
+                        <th>
+                            Oluşturulma
+                        </th>
+
+                        <th>
+                            İşlemler
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @for (
+                    department of departments();
+                    track department.id
+                    ) {
+
+                    <tr>
+
+                        <td>
+                            {{ department.id }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ department.name }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            @if (
+                            department.description
+                            ) {
+
+                            {{ department.description }}
+
+                            }
+                            @else {
+
+                            <span class="empty-value">
+                                Açıklama yok
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            @if (
+                            department.isActive
+                            ) {
+
+                            <span class="status active">
+
+                                Aktif
+
+                            </span>
+
+                            }
+                            @else {
+
+                            <span class="status passive">
+
+                                Pasif
+
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            {{
+                            department.createdAt
+                            .substring(0, 10)
+                            }}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button type="button" class="edit-button" (click)="
+                                                editDepartment(
+                                                    department.id
+                                                )
+                                            ">
+
+                                    Düzenle
+
+                                </button>
+
+
+                                @if (
+                                department.isActive
+                                ) {
+
+                                <button type="button" class="deactivate-button" [disabled]="
+                                                    busyDepartmentId() ===
+                                                    department.id
+                                                " (click)="
+                                                    deactivateDepartment(
+                                                        department
+                                                    )
+                                                ">
+
+                                    @if (
+                                    busyDepartmentId() ===
+                                    department.id
+                                    ) {
+
+                                    İşleniyor...
+
+                                    }
+                                    @else {
+
+                                    Pasife Al
+
+                                    }
+
+                                </button>
+
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

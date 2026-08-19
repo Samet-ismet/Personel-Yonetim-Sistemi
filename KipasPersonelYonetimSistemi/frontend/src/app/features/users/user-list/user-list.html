@@ -1,0 +1,232 @@
+<section class="user-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <p class="eyebrow">
+                KULLANICI YÖNETİMİ
+            </p>
+
+            <h1>
+                Kullanıcılar
+            </h1>
+
+            <p class="description">
+                Sistem kullanıcılarının rollerini,
+                personel bağlantılarını ve
+                hesap durumlarını yönetebilirsiniz.
+            </p>
+
+        </div>
+
+
+        <button type="button" class="add-button" (click)="addUser()">
+
+            + Yeni Kullanıcı
+
+        </button>
+
+    </div>
+
+
+    @if (successMessage()) {
+
+    <div class="success-message">
+        {{ successMessage() }}
+    </div>
+
+    }
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    <div class="table-card">
+
+        @if (isLoading()) {
+
+        <div class="state-message">
+            Kullanıcılar yükleniyor...
+        </div>
+
+        }
+        @else if (users().length === 0) {
+
+        <div class="state-message">
+            Kullanıcı bulunamadı.
+        </div>
+
+        }
+        @else {
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Rol</th>
+                        <th>Bağlı Personel</th>
+                        <th>Departman</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @for (
+                    user of users();
+                    track user.id
+                    ) {
+
+                    <tr>
+
+                        <td>
+                            {{ user.id }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ user.username }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="role-badge">
+                                {{ user.role }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            @if (user.employeeName) {
+
+                            {{ user.employeeName }}
+
+                            }
+                            @else {
+
+                            <span class="empty-value">
+                                Bağlı değil
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            @if (user.departmentName) {
+
+                            {{ user.departmentName }}
+
+                            }
+                            @else {
+
+                            <span class="empty-value">
+                                —
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            @if (user.isActive) {
+
+                            <span class="status active">
+                                Aktif
+                            </span>
+
+                            }
+                            @else {
+
+                            <span class="status passive">
+                                Pasif
+                            </span>
+
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button type="button" class="edit-button" (click)="editAccess(user.id)">
+
+                                    Yetki Düzenle
+
+                                </button>
+
+
+                                <button type="button" [class.deactivate-button]="user.isActive"
+                                    [class.activate-button]="!user.isActive" [disabled]="
+                                                busyUserId() ===
+                                                user.id
+                                            " (click)="changeStatus(user)">
+
+                                    @if (
+                                    busyUserId() ===
+                                    user.id
+                                    ) {
+
+                                    İşleniyor...
+
+                                    }
+                                    @else if (user.isActive) {
+
+                                    Pasife Al
+
+                                    }
+                                    @else {
+
+                                    Aktif Et
+
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

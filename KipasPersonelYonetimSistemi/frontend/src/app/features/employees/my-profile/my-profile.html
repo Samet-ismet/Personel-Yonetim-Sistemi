@@ -1,0 +1,163 @@
+<section class="profile-page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            PERSONEL PROFİLİ
+        </p>
+
+        <h1>
+            Profilim
+        </h1>
+
+        <p>
+            Sistemde kayıtlı personel
+            bilgilerinizi görüntüleyebilirsiniz.
+        </p>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    @if (isLoading()) {
+
+    <div class="state-card">
+        Profil bilgileri yükleniyor...
+    </div>
+
+    }
+    @else if (profile()) {
+
+    <div class="profile-card">
+
+        <div class="profile-title">
+
+            <div>
+
+                <h2>
+                    {{ profile()!.firstName }}
+                    {{ profile()!.lastName }}
+                </h2>
+
+                <p>
+                    {{ profile()!.position }}
+                </p>
+
+            </div>
+
+
+            @if (profile()!.isActive) {
+
+            <span class="status active">
+                Aktif
+            </span>
+
+            }
+            @else {
+
+            <span class="status passive">
+                Pasif
+            </span>
+
+            }
+
+        </div>
+
+
+        <div class="detail-grid">
+
+            <div class="detail-item">
+
+                <span>
+                    Personel ID
+                </span>
+
+                <strong>
+                    {{ profile()!.id }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Departman
+                </span>
+
+                <strong>
+                    {{ profile()!.departmentName }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    E-posta
+                </span>
+
+                <strong>
+                    {{ profile()!.email }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Telefon
+                </span>
+
+                <strong>
+                    {{ profile()!.phoneNumber }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Pozisyon
+                </span>
+
+                <strong>
+                    {{ profile()!.position }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    İşe Giriş Tarihi
+                </span>
+
+                <strong>
+                    {{
+                    profile()!.hireDate
+                    .substring(0, 10)
+                    }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    }
+
+</section>

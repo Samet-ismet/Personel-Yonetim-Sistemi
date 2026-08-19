@@ -1,0 +1,165 @@
+.profile-page {
+    max-width: 950px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+
+    h1 {
+        margin: 6px 0 8px;
+
+        color: #101828;
+        font-size: 30px;
+    }
+
+    p {
+        margin: 0;
+
+        color: #667085;
+    }
+}
+
+.eyebrow {
+    color: #475467 !important;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.profile-card {
+    padding: 28px;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 14px;
+
+    background: #ffffff;
+}
+
+.profile-title {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 24px;
+
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid #eaecf0;
+
+    h2 {
+        margin: 0 0 6px;
+
+        color: #101828;
+
+        font-size: 24px;
+    }
+
+    p {
+        margin: 0;
+
+        color: #667085;
+    }
+}
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 16px;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 10px;
+
+    background: #f9fafb;
+
+    span {
+        color: #667085;
+
+        font-size: 12px;
+        font-weight: 600;
+
+        text-transform: uppercase;
+    }
+
+    strong {
+        color: #101828;
+
+        font-size: 15px;
+    }
+}
+
+.status {
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    border-radius: 16px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status.active {
+    background: #ecfdf3;
+
+    color: #027a48;
+}
+
+.status.passive {
+    background: #fef3f2;
+
+    color: #b42318;
+}
+
+.error-message {
+    padding: 14px 16px;
+
+    border: 1px solid #fecdca;
+
+    border-radius: 8px;
+
+    background: #fef3f2;
+
+    color: #b42318;
+}
+
+.state-card {
+    padding: 40px;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #667085;
+
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

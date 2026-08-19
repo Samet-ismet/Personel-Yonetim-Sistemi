@@ -1,0 +1,167 @@
+<section class="department-form-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <p class="eyebrow">
+                DEPARTMAN YÖNETİMİ
+            </p>
+
+            <h1>
+                {{ pageTitle }}
+            </h1>
+
+            <p>
+                Departman bilgilerini
+                eksiksiz giriniz.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    @if (isLoading()) {
+
+    <div class="loading-card">
+        Departman bilgileri yükleniyor...
+    </div>
+
+    }
+    @else {
+
+    <form class="form-card" [formGroup]="form" (ngSubmit)="submit()">
+
+
+        <div class="form-field">
+
+            <label for="name">
+                Departman Adı
+            </label>
+
+            <input id="name" type="text" formControlName="name" maxlength="100" />
+
+            @if (
+            form.controls.name.touched &&
+            form.controls.name
+            .hasError('required')
+            ) {
+
+            <small class="field-error">
+                Departman adı zorunludur.
+            </small>
+
+            }
+
+            @if (
+            form.controls.name.touched &&
+            form.controls.name
+            .hasError('maxlength')
+            ) {
+
+            <small class="field-error">
+                Departman adı en fazla
+                100 karakter olabilir.
+            </small>
+
+            }
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label for="description">
+                Açıklama
+            </label>
+
+            <textarea id="description" formControlName="description" maxlength="250" rows="5"
+                placeholder="Departman açıklaması">
+                </textarea>
+
+            <div class="character-count">
+                {{ form.controls.description.value.length }}
+                / 250
+            </div>
+
+            @if (
+            form.controls.description.touched &&
+            form.controls.description
+            .hasError('maxlength')
+            ) {
+
+            <small class="field-error">
+                Açıklama en fazla
+                250 karakter olabilir.
+            </small>
+
+            }
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>
+                Departman Durumu
+            </label>
+
+            <label class="checkbox-label">
+
+                <input type="checkbox" formControlName="isActive" />
+
+                <span>
+                    Departman aktif
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="button" class="secondary-button" (click)="cancel()" [disabled]="isSubmitting()">
+
+                Vazgeç
+
+            </button>
+
+
+            <button type="submit" class="primary-button" [disabled]="isSubmitting()">
+
+                @if (isSubmitting()) {
+
+                Kaydediliyor...
+
+                }
+                @else if (isEditMode()) {
+
+                Değişiklikleri Kaydet
+
+                }
+                @else {
+
+                Departman Ekle
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+    }
+
+</section>

@@ -1,0 +1,240 @@
+@Kipas.Personel.API_HostAddress = http://localhost:5026
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGVyc29uZWx1c2VyMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJqdGkiOiIyYjJiYTQzMi0zOTM4LTQ1MzgtYjhjMi01NmYxZDY5ZmZlZjgiLCJleHAiOjE3ODU5MjUyOTUsImlzcyI6IktpcGFzLlBlcnNvbmVsLkFQSSIsImF1ZCI6IktpcGFzLlBlcnNvbmVsLkNsaWVudCJ9.FVxDUk0vsVKomGfazvXxyPCzap2la9HeEL3E4iCgGrU
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3lzdGVtYWRtaW4yIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJqdGkiOiI5NzU2NDI3YS1jN2U5LTQ5YTYtOTJkYS0wZjgxYjIxNjE4OWYiLCJleHAiOjE3ODU4NDUzMTksImlzcyI6IktpcGFzLlBlcnNvbmVsLkFQSSIsImF1ZCI6IktpcGFzLlBlcnNvbmVsLkNsaWVudCJ9.qmSGpQrUWfv1mQH5bMz2sGAyXiAWtj3p_mTofySpe78
+@refreshToken1 = U3rqaYPfyF-sBTJmtO03m4Pq_6XDEzlk0va-2FPxjIsK4_GeAlzvitZY1ybs8ITPXE4gcdocIVsUDiPVO2k8LA
+@refreshToken2 = gsu-QnvGusTmm3CewaQvsotEvUn1CNXkBlXWfsIqbsEMJRCtRrAbAhPWQqg5wK1gQis2MCpBVP19qk5lCbZQZQ
+
+
+
+
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee
+Accept: application/json
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/employee
+Content-Type: application/json
+
+{
+  "firstName": "Samet",
+  "lastName": "Altalı",
+  "department": "Yazılım"
+}
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee/11
+Accept: application/json
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee/99
+Accept: application/json
+
+
+###
+PUT {{Kipas.Personel.API_HostAddress}}/api/employee/11
+Content-Type: application/json
+
+{
+    "firstName": "Mehmet",
+    "lastName": "Kaya",
+    "department": "Muhasebe"
+}
+
+###
+DELETE {{Kipas.Personel.API_HostAddress}}/api/employee/11
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/employee
+Content-Type: application/json
+
+{
+    "firstName": "",
+    "lastName": "",
+    "department": ""
+}
+
+
+
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "personeluser2",
+  "password": "User123!"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "personeluser2",
+  "password": "User123!"
+}
+
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "systemadmin2",
+  "password": "admin123"
+}
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee
+Accept: application/json
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/employee
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Ayşe",
+  "lastName": "Havuç",
+  "department": "Bilgi İşlem"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/employee
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Ayşe",
+  "lastName": "Havuç",
+  "department": "Bilgi işlem"
+}
+
+###
+PUT {{Kipas.Personel.API_HostAddress}}/api/employee/15
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Ayşe",
+  "lastName": "Demir",
+  "department": "Muhasebe"
+}
+
+###
+PUT {{Kipas.Personel.API_HostAddress}}/api/employee/14
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Ayşe",
+  "lastName": "Demir",
+  "department": "Muhasebe"
+} 
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee
+Authorization: Bearer {{adminToken}}
+Accept: application/json
+
+###
+DELETE {{Kipas.Personel.API_HostAddress}}/api/employee/15
+Authorization: Bearer {{userToken}}
+
+###
+DELETE {{Kipas.Personel.API_HostAddress}}/api/employee/14
+Authorization: Bearer {{adminToken}}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "personeluser2",
+  "password": "User123!"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken1}}"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken1}}"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken2}}"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken2}}"
+}
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?pageNumber=1&pageSize=5
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+###
+POST {{Kipas.Personel.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "personeluser2",
+  "password": "User123!"
+}
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?search=Zeynep
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?department=Bilgi%20İşlem
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?sortBy=firstName&sortDirection=asc
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?sortBy=id&sortDirection=desc
+Authorization: Bearer {{userToken}}
+Accept: application/json
+
+###
+GET {{Kipas.Personel.API_HostAddress}}/api/employee?pageSize=500
+Authorization: Bearer {{userToken}}
+Accept: application/json

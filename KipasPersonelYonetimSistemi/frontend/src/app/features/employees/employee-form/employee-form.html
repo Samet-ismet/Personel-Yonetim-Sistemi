@@ -1,0 +1,292 @@
+<section class="employee-form-page">
+
+    <div class="page-header">
+
+        <div>
+            <p class="eyebrow">
+                PERSONEL YÖNETİMİ
+            </p>
+
+            <h1>
+                {{ pageTitle }}
+            </h1>
+
+            <p>
+                Personel bilgilerini eksiksiz
+                ve doğru şekilde giriniz.
+            </p>
+        </div>
+
+    </div>
+
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+        {{ errorMessage() }}
+    </div>
+
+    }
+
+
+    @if (isLoading()) {
+
+    <div class="loading-card">
+        Personel bilgileri yükleniyor...
+    </div>
+
+    }
+    @else {
+
+    <form class="form-card" [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-grid">
+
+
+            <div class="form-field">
+
+                <label for="firstName">
+                    Ad
+                </label>
+
+                <input id="firstName" type="text" formControlName="firstName" maxlength="50" />
+
+                @if (
+                form.controls.firstName.touched &&
+                form.controls.firstName.invalid
+                ) {
+
+                <small class="field-error">
+                    Ad zorunludur ve en fazla
+                    50 karakter olabilir.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="lastName">
+                    Soyad
+                </label>
+
+                <input id="lastName" type="text" formControlName="lastName" maxlength="50" />
+
+                @if (
+                form.controls.lastName.touched &&
+                form.controls.lastName.invalid
+                ) {
+
+                <small class="field-error">
+                    Soyad zorunludur ve en fazla
+                    50 karakter olabilir.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="email">
+                    E-posta
+                </label>
+
+                <input id="email" type="email" formControlName="email" maxlength="254" />
+
+                @if (
+                form.controls.email.touched &&
+                form.controls.email.invalid
+                ) {
+
+                <small class="field-error">
+                    Geçerli bir e-posta adresi giriniz.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="phoneNumber">
+                    Telefon
+                </label>
+
+                <input id="phoneNumber" type="tel" formControlName="phoneNumber" maxlength="30" />
+
+                @if (
+                form.controls.phoneNumber.touched &&
+                form.controls.phoneNumber.invalid
+                ) {
+
+                <small class="field-error">
+                    Telefon numarası zorunludur
+                    ve en fazla 30 karakter olabilir.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="departmentId">
+                    Departman
+                </label>
+
+                <select id="departmentId" formControlName="departmentId">
+
+                    <option [ngValue]="0">
+                        Departman seçiniz
+                    </option>
+
+                    @for (
+                    department of departments();
+                    track department.id
+                    ) {
+
+                    <option [ngValue]="department.id">
+
+                        {{ department.name }}
+
+                    </option>
+
+                    }
+
+                </select>
+
+                @if (
+                form.controls.departmentId.touched &&
+                form.controls.departmentId.invalid
+                ) {
+
+                <small class="field-error">
+                    Geçerli bir departman seçiniz.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="position">
+                    Pozisyon
+                </label>
+
+                <input id="position" type="text" formControlName="position" maxlength="100" />
+
+                @if (
+                form.controls.position.touched &&
+                form.controls.position.invalid
+                ) {
+
+                <small class="field-error">
+                    Pozisyon zorunludur ve en fazla
+                    100 karakter olabilir.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="hireDate">
+                    İşe Giriş Tarihi
+                </label>
+
+                <input id="hireDate" type="date" formControlName="hireDate" [max]="maxHireDate" />
+
+                @if (
+                form.controls.hireDate.touched &&
+                form.controls.hireDate
+                .hasError('required')
+                ) {
+
+                <small class="field-error">
+                    İşe giriş tarihi zorunludur.
+                </small>
+
+                }
+
+                @if (
+                form.controls.hireDate.touched &&
+                form.controls.hireDate
+                .hasError('futureDate')
+                ) {
+
+                <small class="field-error">
+                    İşe giriş tarihi gelecekte olamaz.
+                </small>
+
+                }
+
+            </div>
+
+
+            <div class="form-field status-field">
+
+                <label>
+                    Personel Durumu
+                </label>
+
+                <label class="checkbox-label">
+
+                    <input type="checkbox" formControlName="isActive" />
+
+                    <span>
+                        Personel aktif
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="button" class="secondary-button" (click)="cancel()" [disabled]="isSubmitting()">
+
+                Vazgeç
+
+            </button>
+
+
+            <button type="submit" class="primary-button" [disabled]="isSubmitting()">
+
+                @if (isSubmitting()) {
+
+                Kaydediliyor...
+
+                }
+                @else if (isEditMode()) {
+
+                Değişiklikleri Kaydet
+
+                }
+                @else {
+
+                Personel Ekle
+
+                }
+
+            </button>
+
+        </div>
+
+    </form>
+
+    }
+
+</section>
